@@ -51,20 +51,37 @@ def place_ships(grid_use):
     for row in grid_use:
         print(row)
 
-    print("Place the boat vertically!")
-    start_coordinates = input("Write coordinates for where you want the boat to start")
-    end_coordinates = input("Write coordinates for where you want the boat to end")
+    boat_dircetion = "horizontal"
 
-    start_x, start_y = ord(end_coordinates[0]) - ord("A"), int(end_coordinates[1]) - 1
-    end_x, end_y = ord(start_coordinates[0]) - ord("A"), int(start_coordinates[1]) - 1
+    if boat_dircetion == "vertical":
+        print("Place the boat vertically!")
+        start_coordinates = input("Write coordinates for where you want the boat to start")
+        end_coordinates = input("Write coordinates for where you want the boat to end")
 
-    for x in range(start_x, end_x + 1):
+        start_x, start_y = ord(end_coordinates[0]) - ord("A"), int(end_coordinates[1]) - 1
+        end_x, end_y = ord(start_coordinates[0]) - ord("A"), int(start_coordinates[1]) - 1
+
+        for x in range(start_x, end_x + 1):
+            for y in range(start_y, end_y + 1):
+                grid_use[x][y] = "X"
+            
+        for row in grid_use:
+            print(row)
+         
+    elif boat_dircetion == "horizontal":
+        start_coordinates = input("Write coordinates for where you want the boat to start")
+        end_coordinates = input("Write coordinates for where you want the boat to end")
+
+        start_x, start_y = ord(end_coordinates[0]) - ord("A"), int(end_coordinates[1]) - 1
+        end_x, end_y = ord(start_coordinates[0]) - ord("A"), int(start_coordinates[1]) - 1
+     
         for y in range(start_y, end_y + 1):
-            grid_use[x][y] = "X"
+            for x in range(start_x, end_x + 1):
+                grid_use[x][y] = "X"
+        for row in grid_use:
+            print(row) 
         
-    for row in grid_use:
-        print(row)   
-        
+                
     
 
 
