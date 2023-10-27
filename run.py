@@ -1,6 +1,4 @@
-player_grid = grid_use
 
-computer_grid = grid_use
 
 def clear_console():
     print("\n" * 50)
@@ -10,7 +8,9 @@ def start_game():
     user_name = input("Select a username! \n")
     print(f"Hello {user_name}\n")
     grid_use = grids()
-
+    place_ships(grid_use)
+    
+    
 
 def grids():
     grid_1 = []
@@ -31,12 +31,25 @@ def grids():
         row = [x] + [" "] * 12
         grid_3.append(row)
 
+    grid_type_num = int(input("What grid size would you like to play on \n1. EASY : 7x7 \n2. MEDIUM : 9x9 \n3. HARD : 12x12 \nAnswer with a number 1-3 \n"))
+    if grid_type_num == 1:
+        return grid_1
+    elif grid_type_num == 2:
+        return grid_2
+    elif grid_type_num == 3:
+        return grid_3
+
+def set_grid(grid_use):
+    player_grid = grid_use
+    computer_grid = grid_use
     
+def place_ships(grid_use):
+    for row in grid_use:
+        print(row)
 
 
 def main():
     start_game()
     
-
 
 main()
