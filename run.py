@@ -1,3 +1,18 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+player_grid = []
+
+computer_grid = []
+
+def clear_console():
+    print("\n" * 50)
+
+
+def start_game():
+    user_name = input("Select a username! \n")
+    print(f"Hello {user_name}")
+
+
+def main():
+    start_game()
+
+
+main()
