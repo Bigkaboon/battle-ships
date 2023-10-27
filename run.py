@@ -1,4 +1,4 @@
-
+import random
 
 def clear_console():
     print("\n" * 50)
@@ -42,18 +42,16 @@ def grids():
     
 
 
-""" def set_grid(grid_use):
-    player_grid = grid_use
-    computer_grid = grid_use
-     """
-
 def place_ships(grid_use):
     for row in grid_use:
         print(row)
 
-    boat_dircetion = "horizontal"
+    boat_direction = input("What direction do you want the boat to go 'vertical' or 'horizontal'?")
+    
+    
+    
 
-    if boat_dircetion == "vertical":
+    if boat_direction == "vertical":
         print("Place the boat vertically!")
         start_coordinates = input("Write coordinates for where you want the boat to start")
         end_coordinates = input("Write coordinates for where you want the boat to end")
@@ -68,7 +66,8 @@ def place_ships(grid_use):
         for row in grid_use:
             print(row)
          
-    elif boat_dircetion == "horizontal":
+    elif boat_direction == "horizontal":
+        print("Place the boat Horizontally!")
         start_coordinates = input("Write coordinates for where you want the boat to start")
         end_coordinates = input("Write coordinates for where you want the boat to end")
 
