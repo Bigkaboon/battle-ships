@@ -65,6 +65,8 @@ def place_ships(grid_use):
             
         for row in grid_use:
             print(row)
+        
+        x_counter()
          
     elif boat_direction == "horizontal":
         print("Place the boat Horizontally!")
@@ -79,10 +81,14 @@ def place_ships(grid_use):
                 grid_use[x][y] = "X"
         for row in grid_use:
             print(row) 
+  
+        x_counter()
         
                 
     
-
+def x_counter():
+    for row in grid_use:
+            print(row.count("X"))
 
 
 def main():
