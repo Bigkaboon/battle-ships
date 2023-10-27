@@ -8,6 +8,7 @@ def start_game():
     user_name = input("Select a username! \n")
     print(f"Hello {user_name}\n")
     grid_use = grids()
+    clear_console()
     place_ships(grid_use)
     
     
@@ -38,14 +39,34 @@ def grids():
         return grid_2
     elif grid_type_num == 3:
         return grid_3
+    
 
-def set_grid(grid_use):
+
+""" def set_grid(grid_use):
     player_grid = grid_use
     computer_grid = grid_use
-    
+     """
+
 def place_ships(grid_use):
     for row in grid_use:
         print(row)
+
+    print("Place the boat vertically!")
+    start_coordinates = input("Write coordinates for where you want the boat to start")
+    end_coordinates = input("Write coordinates for where you want the boat to end")
+
+    start_x, start_y = ord(end_coordinates[0]) - ord("A"), int(end_coordinates[1]) - 1
+    end_x, end_y = ord(start_coordinates[0]) - ord("A"), int(start_coordinates[1]) - 1
+
+    for x in range(start_x, end_x + 1):
+        for y in range(start_y, end_y + 1):
+            grid_use[x][y] = "X"
+        
+    for row in grid_use:
+        print(row)   
+        
+    
+
 
 
 def main():
