@@ -19,7 +19,8 @@ def validate_input(current_input, valid_options):
 def get_user_name():
     user_name = input("Enter a username \n")
     while len(user_name) < 3:
-        return user_name
+        user_name = input("Usernames should be at least 3 chars long, please enter a username! \n")
+    return user_name
 
 
 def get_grid_size():
@@ -65,17 +66,13 @@ def print_grid(grid, grid_size):
         index = index + 1
     print(border)
 
-
-""" def generate_coordinates():
-    x_coordniate = random.choice(["A", "B", "C", "D", "E", "F", "G"])
-    y_coordniate = random.randint(2, 8)
-    random_coordinates = x_coordniate + str(y_coordniate)
-    return random_coordinates """
     
-def place_ships_random(pc_grid):
+def place_ships_random(pc_grid, grid_size):
+    letters = ["A", "B", "C", "D", "E", "F", "G"]
+    
     for i in range(10):
 
-        x_coordniate = random.choice(["A", "B", "C", "D", "E", "F", "G"])
+        x_coordniate = random.choice(letters)
         y_coordniate = random.randint(1, 7)
         random_coordinates = x_coordniate + str(y_coordniate)
         x_row, x_col = ord(random_coordinates[0]) - ord("A"), int(random_coordinates[1]) - 1
@@ -106,7 +103,6 @@ def place_user_ships(user_grid):
     
                 boat_coordinates = input("Write coordinates for where you want to place an 'X'")
                 
-
                 x_row, x_col = ord(boat_coordinates[0]) - ord("A"), int(boat_coordinates[1]) - 1
 
                 if 0 <= x_row < len(user_grid) and 0 <= x_col < len(user_grid[0]):
@@ -114,8 +110,6 @@ def place_user_ships(user_grid):
                 else:
                     print("Invalid coordinates for placing 'X'")
                 print_grid(user_grid, grid_size)
-
-                
             x = False
         elif want_random == 1:
             random_player_ships(user_grid, grid_size)
@@ -145,7 +139,7 @@ def start_game():
     user_grid = create_empty_grid(grid_size)
     pc_grid = create_empty_grid(grid_size)
     print_grid(user_grid, grid_size)
-    place_ships_random(pc_grid)
+    place_ships_random(pc_grid, grid_size)
     place_user_ships(user_grid)
 
     
