@@ -35,5 +35,42 @@ def get_grid_size():
     return grid_size
 
 
+def create_empty_grid(grid_size):
+    index = 0
+    grid = []
+    while index < grid_size:
+        grid.append([0 for i in range(0, grid_size)])
+        index = index + 1
+    return grid
+
+
+def print_grid(grid, grid_size):
+    index = 1
+    number_list = "   "
+    border = "***"
+    while index <= grid_size:
+        number_list += f"{index}"
+        index = index + 1
+        border += "***"
+    letter_list = "ABCDEFGHIJKL"
+    index = 0
+    print(f"{border}\n")
+    print(f"{number_list}\n")
+    for row in grid:
+        row_list = f"{letter_list[index]}  "
+        for item in row:
+           row_list += f"{item}  "
+        print(f"{row_list}\n")
+        index = index + 1
+    print(border)
+
+
+def start_game():
+    user_name = get_user_name()
+    print(f"Hello {user_name}\n")
+    grid_size = get_grid_size()
+    user_grid = create_empty_grid(grid_size)
+    pc_grid = create_empty_grid(grid_size)
+    print_grid(user_grid, grid_size)
 
 
