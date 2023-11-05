@@ -79,9 +79,9 @@ def place_random_ships(grid, grid_size):
     ships_placed = 0
     while ships_placed < grid_size:
 
-        x_coordniate = random.randint(0, grid_size)
-        y_coordniate = random.randint(0, grid_size)
-        if (grid[x_coordniate][y_coordniate] == 0)
+        x_coordniate = random.randint(0, grid_size - 1)
+        y_coordniate = random.randint(0, grid_size - 1)
+        if (grid[x_coordniate][y_coordniate] == 0):
             grid[x_coordniate][y_coordniate] == "X"
             ships_placed += 1
     return grid
@@ -102,6 +102,24 @@ def translate_coordinates(coordinate, grid_size):
         except ValueError:
             print(f"Please enter a number for the second coordinate")
             False
+
+
+def place_ships_manually(grid, grid_size):
+    ships_placed = 0
+    while ships_placed < grid_size:
+        valid_coordinate = False
+        while valid_coordinate is False:
+            coordinate = input("Enter a coordinate (A6):")
+            translated_coordinate = translate_coordinates(coordinate, grid_size)
+            if translated_coordinate is not False:
+                if (grid[translated_coordinate[0]][translated_coordinate[1]] = 0):
+                    grid[translated_coordinate[0]][translated_coordinate[1]] = "X"
+                    ships_placed += 1
+                    valid_coordinate = True
+            else:
+                print(f"The current coordinate already has a ship, please enter a different one")
+    return grid
+
 
 
 def place_user_ships(user_grid, grid_size):
