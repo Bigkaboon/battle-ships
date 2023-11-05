@@ -5,6 +5,7 @@ grid_size = 7
 user_grid = []
 pc_grid = []
 random_coordinates = ""
+letter_list = "ABCDEFGHIJKL"
 
 
 def clear_console():
@@ -34,7 +35,15 @@ def get_grid_size():
     if grid_size == "3":
         grid_size = 12
     return grid_size
-    
+
+
+def get_user_ships_mode():
+    want_random = 0
+    while want_random  not in ["1", "2"]:
+        want_random = inmput("How do you want you ships to be placed \n1. Randomly \n2. Manually\nAnswer 1 or 2.")
+        if validate_input(want_random, ["1", "2"]) is False:
+            print("Must enter either 1 or 2, please try again.")
+    return want_random
 
 
 def create_empty_grid(grid_size):
@@ -54,7 +63,6 @@ def print_grid(grid, grid_size):
         number_list += f"{index}  "
         index = index + 1
         border += "***"
-    letter_list = "ABCDEFGHIJKL"
     index = 0
     print(f"{border}\n")
     print(f"{number_list}\n")
@@ -164,5 +172,5 @@ def start_game():
     
 
     
-
-start_game()
+if __name__ == "__main__":
+    start_game()
