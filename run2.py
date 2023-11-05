@@ -81,15 +81,27 @@ def place_random_ships(grid, grid_size):
 
         x_coordniate = random.randint(0, grid_size)
         y_coordniate = random.randint(0, grid_size)
-        random_coordinates = x_coordniate + str(y_coordniate)
-        x_row, x_col = ord(random_coordinates[0]) - ord("A"), int(random_coordinates[1]) - 1
+        if (grid[x_coordniate][y_coordniate] == 0)
+            grid[x_coordniate][y_coordniate] == "X"
+            ships_placed += 1
+    return grid
 
-        if 0 <= x_row < len(pc_grid) and 0 <= x_col < len(pc_grid[0]):
-            pc_grid[x_row][x_col] = "X"
-        else:
-            print("Invalid coordinates for placing 'X'")
 
-    print_grid(pc_grid, grid_size)
+def translate_coordinates(coordinate, grid_size):
+    letter = coordinate[0]
+    valid_letters = letter_list[0: grid_size - 1]
+    if validate_input(letter.upper(), valid_letters) is False:
+        print(f"Please enter one of these letter {valid_letters}")
+        return False
+    else:
+        input_number = coordinate[1:]
+        try:
+            int_input_number = int(input_number)
+            if int_input_number <= grid_size and int_input_number >= 1:
+                return (valid_letters.index(letter.upper()), int_input_number - 1)
+        except ValueError:
+            print(f"Please enter a number for the second coordinate")
+            False
 
 
 def place_user_ships(user_grid, grid_size):
