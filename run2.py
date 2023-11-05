@@ -8,7 +8,11 @@ random_coordinates = ""
 letter_list = "ABCDEFGHIJKL"
 p_guess = ""
 pc_guess = ""
-
+boats_left = 0
+p_right_guess = []
+pc_right_guess = []
+p_wrong_guess = []
+pc_wrong_guess = []
 
 
 def clear_console():
@@ -53,7 +57,7 @@ def create_empty_grid(grid_size):
     index = 0
     grid = []
     while index < grid_size:
-        grid.append([0 for i in range(0, grid_size)])
+        grid.append(["_" for i in range(0, grid_size)])
         index = index + 1
     return grid
 
@@ -83,7 +87,7 @@ def place_random_ships(grid, grid_size):
     while ships_placed < grid_size:
         x_coordinate = random.randint(0, grid_size - 1)
         y_coordinate = random.randint(0, grid_size - 1)
-        if (grid[x_coordinate][y_coordinate] == 0):
+        if (grid[x_coordinate][y_coordinate] == "_"):
             grid[x_coordinate][y_coordinate] = "X"
             ships_placed += 1
     return grid
@@ -91,7 +95,7 @@ def place_random_ships(grid, grid_size):
 
 def translate_coordinates(coordinate, grid_size):
     letter = coordinate[0]
-    valid_letters = letter_list[0: grid_size - 1]
+    valid_letters = letter_list[0: grid_size]
     if validate_input(letter.upper(), valid_letters) is False:
         print(f"Please enter one of these letter {valid_letters}")
         return False
@@ -115,14 +119,16 @@ def place_ships_manually(grid, grid_size):
         valid_coordinate = False
         while valid_coordinate is False:
             coordinate = input("Enter a coordinate (A6):")
+            if len(coordinate) <= 1:
+                coordinate = input("Input can't be empty! Please enter a coordinate (A6):")
             translated_coordinate = translate_coordinates(coordinate, grid_size)
             if translated_coordinate is not False:
-                if (grid[translated_coordinate[0]][translated_coordinate[1]] == 0):
+                if (grid[translated_coordinate[0]][translated_coordinate[1]] == "_"):
                     grid[translated_coordinate[0]][translated_coordinate[1]] = "X"
                     ships_placed += 1
                     valid_coordinate = True
-            else:
-                print(f"The current coordinate already has a ship, please enter a different one")
+                else:
+                    print(f"The current coordinate already has a ship, please enter a different one")
     return grid
 
 
@@ -166,9 +172,10 @@ def player_guess():
     translated_p_guess = False
     while translated_p_guess is False:
         p_guess = input("Guess a coordinate (A6): ")
+        while len(p_guess) <= 1 or "":
+            p_guess = input("Input can't be empty! Please guess a coordinate (A6): ")
         translated_p_guess = translate_coordinates(p_guess, grid_size)
         if translated_p_guess is not False:
-            print("Your guess is valid")
             print(f"Your guess is {p_guess}")
             translated_p_guess = True
         else:
@@ -179,60 +186,108 @@ def player_guess():
 
 def computer_guess():
     x_coordinate = random.randint(0, grid_size - 1)
-    y_coordinate = random.randint(0, grid_size - 1)
+    y_coordinate = random.randint(1, grid_size - 1)
     x_letter_coordinate = letter_list[x_coordinate]
 
     pc_guess = x_letter_coordinate + str(y_coordinate)
-    print(pc_guess)
+    print(f"Computer guessed {pc_guess}")
     return pc_guess
     
 
 def handle_computer_guess(grid):
     guess = computer_guess()
+    while guess in pc_wrong_guess:
+        guess = computer_guess()
     translated_guess = translate_coordinates(guess, grid_size)
     if translated_guess is not False:
         if (grid[translated_guess[0]][translated_guess[1]] == "X"):
             grid[translated_guess[0]][translated_guess[1]] = 1
             print("Computer guessed right")
+            pc_right_guess.append(guess)
         else:
-            grid[translated_guess[0]][translated_guess[1]] = 2
-            print("Comupter guessed wrong")
+            grid[translated_guess[0]][translated_guess[1]] = 0
+            pc_wrong_guess.append(guess)
+            return pc_wrong_guess
+
+
+def show_guesses(wrong_guess, right_guess):
+    print(f"This is the wrong guesses:\n{wrong_guess}\n")
+    print(f"This is the right guesses:\n{right_guess}\n")
 
 
 def handle_player_guess(grid):
     guess = player_guess()
+    while guess in p_wrong_guess:
+        print("You have already guessed that coordinate")
+        guess = player_guess()
     translated_guess = translate_coordinates(guess, grid_size)
     if translated_guess is not False:
         if (grid[translated_guess[0]][translated_guess[1]] == "X"):
             grid[translated_guess[0]][translated_guess[1]] = 1
+            p_right_guess.append(guess)
             print("You guessed right")
+            print(f"Right guesses: {p_right_guess}")
         else:
-            grid[translated_guess[0]][translated_guess[1]] = 2
+            grid[translated_guess[0]][translated_guess[1]] = 0
             print("Wrong guess")
+            p_wrong_guess.append(guess)
+            print(f"Wrong guesses: {p_wrong_guess}")
+            return p_wrong_guess
 
-            
-def play_game():
-    handle_player_guess(pc_grid)
-    print_grid(pc_grid, grid_size)
-    
 
-    
+def show_stats(user_name, grid_size):
+    print(f"{user_name}'s right guesses: {len(p_right_guess)}")
+    print(f"Computer's right guesses: {len(pc_right_guess)}")
+    print(f"First to {grid_size}")
 
+
+def determine_winner(winner, p_right_guess, pc_right_guess, grid_size, user_name):
+    if len(p_right_guess) == grid_size:
+        print(f"Congrats {user_name}! You Win!.")
+        return True
+    elif len(pc_right_guess) == grid_size:
+        print("GAME OVER! The computer wins.")
+        return True   
+    else: 
+        winner = False
+     
 
 def start_game():
     user_name = get_user_name()
+    clear_console()
     print(f"Hello {user_name}\n")
     grid_size = get_grid_size()
+    clear_console()
     user_grid = create_empty_grid(grid_size)
     pc_grid = create_empty_grid(grid_size)
     pc_grid = place_random_ships(pc_grid, grid_size)
-    print_grid(pc_grid, grid_size)
+    clear_console()
     user_grid = place_user_ships(user_grid, grid_size)
-    print_grid(user_grid, grid_size)
-    handle_computer_guess(user_grid)
-    print_grid(user_grid, grid_size)
+    clear_console()
+    winner = False
+    while winner is not True:
+        clear_console()
+        print(f"Computer's guesses:\n")
+        show_guesses(pc_wrong_guess, pc_right_guess)
+        print(f"{user_name}'s guesses:\n")
+        show_guesses(p_wrong_guess, p_right_guess)
+        print_grid(user_grid, grid_size)
+        handle_player_guess(pc_grid)
+        determine_winner(winner, p_right_guess, pc_right_guess, grid_size, user_name)
+        handle_computer_guess(user_grid)
+        print_grid(user_grid, grid_size)
+        show_stats(user_name, grid_size)
+        winner = determine_winner(winner, p_right_guess, pc_right_guess, grid_size, user_name)
+        
+        if winner is True:
+            print("Game has ended")
+            break
+    
+        
+    
     
     
     
 if __name__ == "__main__":
     start_game()
+    
