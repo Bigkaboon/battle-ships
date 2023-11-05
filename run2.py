@@ -26,15 +26,15 @@ def get_user_name():
 def get_grid_size():
     grid_size = input("What grid size would you like to play on \n1. EASY : 7x7 \n2. MEDIUM : 9x9 \n3. HARD : 12x12 \nAnswer with a number 1-3 \n")
     while validate_input(grid_size, ["1", "2", "3"]) is False:
-        grid_size = input("Invalid input, What grid size would you like to play on \n1. EASY : 7x7 \n2. MEDIUM : 9x9 \n3. HARD : 12x12 \nAnswer with a number 1-3 \n")  
-
+        grid_size = input("Invalid input, What grid size would you like to play on \n1. EASY : 7x7 \n2. MEDIUM : 9x9 \n3. HARD : 12x12 \nAnswer with a number 1-3 \n")
     if grid_size == "1":
         grid_size = 7
     if grid_size == "2":
         grid_size = 9
     if grid_size == "3":
-        grid_size == 12
+        grid_size = 12
     return grid_size
+    
 
 
 def create_empty_grid(grid_size):
@@ -67,13 +67,21 @@ def print_grid(grid, grid_size):
     print(border)
 
     
-def place_ships_random(pc_grid, grid_size):
+def place_computer_ships(pc_grid, grid_size):
     letters = ["A", "B", "C", "D", "E", "F", "G"]
-    
+    x = 7
+    y = 10
+    if grid_size == 9:
+        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+        x = 9
+    elif grid_size == 12:
+        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+        x = 12
+
     for i in range(10):
 
         x_coordniate = random.choice(letters)
-        y_coordniate = random.randint(1, 7)
+        y_coordniate = random.randint(1, x)
         random_coordinates = x_coordniate + str(y_coordniate)
         x_row, x_col = ord(random_coordinates[0]) - ord("A"), int(random_coordinates[1]) - 1
 
@@ -85,7 +93,7 @@ def place_ships_random(pc_grid, grid_size):
     print_grid(pc_grid, grid_size)
 
 
-def place_user_ships(user_grid):
+def place_user_ships(user_grid, grid_size):
     """ Lets the user place X's representing the ships """
     x = True
     while x is True:
@@ -99,11 +107,13 @@ def place_user_ships(user_grid):
         
         if want_random == 2:
             for i in range(10):
-
+                
     
                 boat_coordinates = input("Write coordinates for where you want to place an 'X'")
                 
+
                 x_row, x_col = ord(boat_coordinates[0]) - ord("A"), int(boat_coordinates[1]) - 1
+                
 
                 if 0 <= x_row < len(user_grid) and 0 <= x_col < len(user_grid[0]):
                     user_grid[x_row][x_col] = "X"
@@ -117,9 +127,18 @@ def place_user_ships(user_grid):
 
 
 def random_player_ships(user_grid, grid_size):
+    letters = ["A", "B", "C", "D", "E", "F", "G"]
+    x = 7
+    if grid_size == 9:
+        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+        x = 9
+    elif grid_size == 12:
+        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+        x = 12
+
     for i in range(10):
-        x_coordniate = random.choice(["A", "B", "C", "D", "E", "F", "G"])
-        y_coordniate = random.randint(1, 7)
+        x_coordniate = random.choice(letters)
+        y_coordniate = random.randint(1, x)
         random_boat_coordinates = x_coordniate + str(y_coordniate)
             
             
@@ -139,8 +158,10 @@ def start_game():
     user_grid = create_empty_grid(grid_size)
     pc_grid = create_empty_grid(grid_size)
     print_grid(user_grid, grid_size)
-    place_ships_random(pc_grid, grid_size)
-    place_user_ships(user_grid)
+    
+    place_computer_ships(pc_grid, grid_size)
+    place_user_ships(user_grid,grid_size)
+    
 
     
 
