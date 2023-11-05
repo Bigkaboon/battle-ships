@@ -75,21 +75,12 @@ def print_grid(grid, grid_size):
     print(border)
 
     
-def place_computer_ships(pc_grid, grid_size):
-    letters = ["A", "B", "C", "D", "E", "F", "G"]
-    x = 7
-    y = 10
-    if grid_size == 9:
-        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-        x = 9
-    elif grid_size == 12:
-        letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
-        x = 12
+def place_random_ships(grid, grid_size):
+    ships_placed = 0
+    while ships_placed < grid_size:
 
-    for i in range(10):
-
-        x_coordniate = random.choice(letters)
-        y_coordniate = random.randint(1, x)
+        x_coordniate = random.randint(0, grid_size)
+        y_coordniate = random.randint(0, grid_size)
         random_coordinates = x_coordniate + str(y_coordniate)
         x_row, x_col = ord(random_coordinates[0]) - ord("A"), int(random_coordinates[1]) - 1
 
