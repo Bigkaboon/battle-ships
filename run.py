@@ -124,6 +124,8 @@ def translate_coordinates(coordinate, grid_size):
             False
     if coordinate[1:] is not int:
         return False
+    if letter == "" or " ":
+        return False
 
 
 def place_ships_manually(grid, grid_size):
@@ -132,7 +134,7 @@ def place_ships_manually(grid, grid_size):
         valid_coordinate = False
         while valid_coordinate is False:
             coordinate = input("Enter a coordinate (A6):")
-            if len(coordinate) <= 1:
+            while len(coordinate) <= 1:
                 coordinate = input("""Input can't be empty!
                 Please enter a coordinate (A6):""")
             translated_coordinate = translate_coordinates(
