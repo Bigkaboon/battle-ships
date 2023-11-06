@@ -7,12 +7,23 @@ This is an application built for you who want to challenge yourself with a game 
 - Difficulties - The user can choose between Easy, Medium and Hard.
     - Map-size - The size of the map increases in symbiose with the difficulty
     - Amount of ships - As well as the map, the amount of ships able to place increases.
+
+    ![Image showing the 3 difficulties](readme-images/PP3-difficulties.png)
+
 - Place ship modes - User can choose to place out ships either randomly or manually
+
+    ![Image showing the 2 different ways to place ships](readme-images/PP3-place-mode.png)
+
+	
 
 - Show stats - Throughout the game, updated statistics of the game are printed.
 
+    ![Image showing the stats of the game](readme-images/PP3-show-stats.png)
+
 
 - Show guesses - All the right and wrong guesses are saved in the list and are displayed in order to ease any confusion if the coordinates have already been guessed.
+
+    ![Image showing the guesses made](readme-images/PP3-show-guesses.png)
 
 ## Features left to implement
 ---
