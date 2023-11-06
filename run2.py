@@ -181,7 +181,10 @@ def player_guess():
         else:
             print("Your guess is not valid")
     return p_guess
-    
+
+
+def print_line():
+    print("-------------------------\n")
 
 
 def computer_guess():
@@ -267,10 +270,13 @@ def start_game():
     winner = False
     while winner is not True:
         clear_console()
+        print_line()
         print(f"Computer's guesses:\n")
         show_guesses(pc_wrong_guess, pc_right_guess)
+        print_line()
         print(f"{user_name}'s guesses:\n")
         show_guesses(p_wrong_guess, p_right_guess)
+        print_line()
         print_grid(user_grid, grid_size)
         handle_player_guess(pc_grid)
         determine_winner(winner, p_right_guess, pc_right_guess, grid_size, user_name)
