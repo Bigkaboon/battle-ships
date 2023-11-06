@@ -273,15 +273,14 @@ def start_game():
         show_guesses(p_wrong_guess, p_right_guess)
         print_line()
         print_grid(user_grid, grid_size)
+        show_stats(user_name, grid_size)
         handle_player_guess(pc_grid, grid_size)
         determine_winner(
             winner, p_right_guess, pc_right_guess, grid_size, user_name)
         handle_computer_guess(user_grid, grid_size)
         print_grid(user_grid, grid_size)
-        show_stats(user_name, grid_size)
         winner = determine_winner(
             winner, p_right_guess, pc_right_guess, grid_size, user_name)
-
         if winner is True:
             print("Game has ended")
             break
